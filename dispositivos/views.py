@@ -4,9 +4,15 @@ from django.http import HttpResponse
 
 
 def inicio(request):
-    return HttpResponse(
-        "<h1>EcoEnergy</h1>"
-        "<p>Back End en funcionamiento</p>"
+    contexto = {
+        "sistema": "EcoEnergy",
+        "mensaje": "Monitoreo energético responsable",
+        "asignatura": "Programación Back End",
+    }
+    return render(
+        request,
+        "dispositivos/inicio.html",
+        contexto,
     )
 
 def dispositivos_zona(request,zona_id):
@@ -25,3 +31,26 @@ def ubicacion_zona(request,zona_id):
         )
     return HttpResponse(
         f"Que buscas Hacker???")
+
+def catalogo(request):
+    dispositivos = [
+        {"nombre": "Medidor inteligente", "estado": "Activo"},
+        {"nombre": "Sensor de temperatura", "estado": "Activo"},
+        {"nombre": "Climatizador", "estado": "Revisión"},
+    ]
+    return render(
+        request,
+        "dispositivos/catalogo.html",
+        {"dispositivos": dispositivos},
+    )
+
+def info(request):
+    informacion = {
+        "texto": "Somos una empresa comprometida con la energia.",
+        "direccion": "Av. Aguirre #242",
+    }
+    return render(
+        request,
+        "dispositivos/info.html",
+        informacion,
+    )
