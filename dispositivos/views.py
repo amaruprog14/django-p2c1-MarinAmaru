@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .services import cargar_dispositivos, cargar_consumos
+from .services import cargar_dispositivos,cargar_zonas
 
 
 def inicio(request):
@@ -34,17 +34,31 @@ def ubicacion_zona(request,zona_id):
 
 def catalogo(request):
     dispositivos = cargar_dispositivos()
-    activos = sum(
-        1 for item in dispositivos
-        if item["estado"] == "Activo"
-    )
+    
     contexto = {
         "dispositivos": dispositivos,
         "total": len(dispositivos),
-        "total_activos": activos,
+        
     }
     return render(
         request, "dispositivos/catalogo.html", contexto
+    )
+
+def zonascatalogo(request):
+    zonas = cargar_zonas()
+    dispositivos = cargar_dispositivos()
+
+    for zona in zonas:
+        zona["dispositivos"] = [
+            d for d in dispositivos if d["zona_id"] == zona["id"]
+        ]
+
+    contexto = {
+        "zonas": zonas,
+        "total": len(zonas),
+    }
+    return render(
+        request, "dispositivos/zonas.html", contexto
     )
 
 def info(request):

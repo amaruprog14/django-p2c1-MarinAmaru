@@ -1,0 +1,17 @@
+[
+    {
+      "id": 1,
+      "nombre": "Climatizacion",
+      "descripcion": "Equipos de calefaccion y aire acondicionado"
+    },
+    {
+      "id": 2,
+      "nombre": "Iluminacion",
+      "descripcion": "Dispositivos de iluminacion interior y exterior"
+    },
+    {
+      "id": 3,
+      "nombre": "Electrodomesticos",
+      "descripcion": "Electrodomesticos de uso general"
+    }
+  ]
