@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block tittle %}Detalle de zona | EcoEnergy {% endblock %}
+
+{% block content %}
+    <p class="mb-3">
+        <a href="{% url 'dispositivos:zonas' %}">&laquo; Volver al listado</a>
+    </p>
+
+    <h1 class="mb-4">Detalle de zona: {{ zona.nombre }}</h1>
+
+    <div class="row g-3 mb-4 text-center">
+        <div class="col-md-3">
+            <div class="border rounded p-3 h-100">
+                <div class="text-muted small">Límite</div>
+                <div class="fw-bold fs-5">{{ zona.limite_kwh }} kWh</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="border rounded p-3 h-100">
+                <div class="text-muted small">Consumo total</div>
+                <div class="fw-bold fs-5">{{ consumo_total }} kWh</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="border rounded p-3 h-100">
+                <div class="text-muted small">Dispositivos</div>
+                <div class="fw-bold fs-5">{{ dispositivos|length }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="border rounded p-3 h-100">
+                <div class="text-muted small">Estado</div>
+                {% if estado == "ALERTA" %}
+                    <span class="badge bg-danger fs-6">ALERTA</span>
+                {% else %}
+                    <span class="badge bg-success fs-6">NORMAL</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if dispositivos %}
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Dispositivo</th>
+                    <th>Categoría</th>
+                    <th class="text-end">Consumo kWh</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dispositivo in dispositivos %}
+                    <tr>
+                        <td>{{ dispositivo.nombre }}</td>
+                        <td>{{ dispositivo.categoria_nombre }}</td>
+                        <td class="text-end">{{ dispositivo.consumo_kwh }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-muted fst-italic">Esta zona no tiene dispositivos.</p>
+    {% endif %}
+{% endblock %}

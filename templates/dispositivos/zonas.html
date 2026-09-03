@@ -21,9 +21,12 @@
                             {% if zona.dispositivos|length == 1 %}dispositivo{% else %}dispositivos{% endif %}
                         </p>
 
-                        
+                        {% if zona.dispositivos %}
+                        {% else %}
+                            <p class="text-muted fst-italic mb-3">Sin dispositivos asociados</p>
+                        {% endif %}
 
-                        <a href="#" class="btn btn-outline-success mt-auto">Ver detalle</a>
+                        <a href="{% url 'dispositivos:detalle_zona' zona.id %}" class="btn btn-outline-success mt-auto">Ver detalle</a>
                     </div>
                 </div>
             </div>
