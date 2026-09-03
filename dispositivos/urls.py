@@ -8,5 +8,6 @@ urlpatterns = [
     path("dispositivos/", views.catalogo, name="catalogo"),
     path("info/", views.info, name="info"),
     path("zonas/", views.zonascatalogo, name="zonas"),
-    path("zonas/<int:zona_id>/", views.detalle_zona, name="detalle_zona")
+    path("zonas/<int:zona_id>/", views.detalle_zona, name="detalle_zona"),
+    path("resumen_zonas/",views.resumen_zonas,name="resumen_zonas")
 ]

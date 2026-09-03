@@ -117,3 +117,34 @@ def detalle_zona(request, zona_id):
         "estado": estado,
     }
     return render(request, "dispositivos/detalle_zona.html", contexto)
+
+def resumen_zonas(request):
+    zonas = cargar_zonas()
+    dispositivos = cargar_dispositivos()
+
+    for zona in zonas:
+        zona["dispositivos"] = [
+            d for d in dispositivos if d["zona_id"] == zona["id"]
+        ]
+    dispositivos_de_la_zona = [
+        dispositivo
+        for dispositivo in dispositivos
+        if dispositivo["zona_id"] == zona["id"]
+    ]
+    
+    
+    consumo_total = sum(dispositivo["consumo_kwh"] for dispositivo in dispositivos)
+    estado = "LIMITE SUPERADO" if consumo_total > zona["limite_kwh"] else "DENTRO DEL LIMITE"
+    # consumo_zona =
+
+    contexto = {
+        "zonas": zonas,
+        "dispositivos": dispositivos,
+        "total": len(zonas),
+        "total_dispositivos":len(dispositivos),
+        "consumo_total": consumo_total,
+        "estado": estado
+    }
+    return render(
+        request, "dispositivos/resumen_zonas.html", contexto
+    )
